@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#123b58">
+<title>Quiz Quiz 2 — Questões 11 a 20</title>
+<style>
+:root{--azul:#0d3b5a;--azul2:#1976a5;--claro:#e9f7ff;--rosa:#fff0f6;--verde:#1f8a5b;--vermelho:#c53d4d;--texto:#173044}
+*{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#eaf8ff,#fff4f8);color:var(--texto)}
+body{padding:9px} .app{width:min(100%,540px);margin:auto}
+header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:white;border-radius:20px;padding:14px;text-align:center;box-shadow:0 12px 28px rgba(13,59,90,.18)}
+header .curso{font-size:.8rem;font-weight:900;text-transform:uppercase;letter-spacing:.5px} header h1{margin:6px 0 2px;font-size:1.35rem} header p{margin:0;font-size:.85rem;opacity:.92}
+.painel{display:flex;align-items:center;gap:10px;background:white;border-radius:15px;padding:10px 12px;margin:10px 0;box-shadow:0 7px 18px rgba(20,70,100,.08)}
+.prog{flex:1;height:10px;background:#dcecf4;border-radius:20px;overflow:hidden} .bar{height:100%;background:linear-gradient(90deg,#42aee0,#ec82ad);width:10%;transition:.3s} .count{font-weight:900;font-size:.88rem}
+.tela{background:white;border-radius:22px;min-height:540px;padding:18px;box-shadow:0 14px 34px rgba(22,73,103,.14);display:flex;flex-direction:column}
+.tag{align-self:flex-start;background:#dff3ff;color:#145171;font-size:.75rem;font-weight:900;border-radius:999px;padding:7px 11px;margin-bottom:12px}
+.questao{font-size:1.08rem;line-height:1.42;font-weight:800;margin-bottom:14px}
+.opcoes{display:grid;gap:9px} .opcao{border:2px solid #dbeaf2;background:#f9fdff;border-radius:15px;padding:12px;text-align:left;font-size:.98rem;line-height:1.3;font-weight:700;cursor:pointer}
+.opcao.sel{border-color:#2588b7;background:#e4f5fd} .opcao.certa{border-color:var(--verde);background:#e7f8ef;color:#12663f} .opcao.errada{border-color:var(--vermelho);background:#fff0f2;color:#9d2433}
+.aviso{margin-top:auto;padding-top:14px;text-align:center;font-size:.84rem;color:#607786}
+.acoes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px} button{border:0;border-radius:14px;padding:13px 10px;font-size:.96rem;font-weight:900;cursor:pointer}
+.sec{background:white;color:#174b68;border:1px solid #d7e9f2} .pri{background:linear-gradient(135deg,#17658e,#278fbd);color:white}
+.comentario{display:none;background:linear-gradient(145deg,#fff0f6,#fff8fb)} .comentario h2{font-size:1.2rem;margin:4px 0 14px;color:#9c3d67} .resultado{font-size:1rem;font-weight:900;margin-bottom:12px} .box{background:white;border-left:6px solid #ef86b1;border-radius:14px;padding:15px;font-size:1rem;line-height:1.5;font-weight:700}
+.gabarito{margin-top:12px;background:#e8f8ef;border-radius:13px;padding:12px;font-weight:900;color:#176843}
+.final{display:none;text-align:center;justify-content:center;align-items:center} .nota{font-size:3rem;font-weight:900;color:#17658e;margin:12px 0} .final h2{font-size:1.5rem}
+@media(max-height:740px){.tela{min-height:470px} .questao{font-size:1rem} .opcao{padding:10px;font-size:.93rem}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="curso">Curso de Contabilidade Professor Moreira</div><h1>Quiz 2 — Questões 11 a 20</h1><p>Propriedade para Investimento • CPC 28</p></header>
+<div class="painel"><div class="prog"><div class="bar" id="bar"></div></div><div class="count" id="count"></div></div>
+
+<section class="tela" id="tQuestao">
+<div class="tag" id="tag"></div>
+<div class="questao" id="q"></div>
+<div class="opcoes" id="opts"></div>
+<div class="aviso">Marque uma alternativa e toque em “Responder”.</div>
+<div class="acoes"><button class="sec" onclick="voltar()">◀ Voltar</button><button class="pri" onclick="responder()">Responder</button></div>
+</section>
+
+<section class="tela comentario" id="tComentario">
+<div class="tag">Comentário da questão</div>
+<h2 id="tituloComentario"></h2>
+<div class="resultado" id="resultado"></div>
+<div class="box" id="comentario"></div>
+<div class="gabarito" id="gabarito"></div>
+<div class="acoes" style="margin-top:auto"><button class="sec" onclick="rever()">↩ Rever questão</button><button class="pri" onclick="proxima()">Próxima ▶</button></div>
+</section>
+
+<section class="tela final" id="tFinal">
+<div><div class="tag" style="margin:auto">Resultado final</div><h2>Quiz concluído!</h2><div class="nota" id="nota"></div><p id="msg"></p><div class="acoes"><button class="sec" onclick="reiniciar()">↻ Refazer</button><button class="pri" onclick="inicio()">Início</button></div></div>
+</section>
+</div>
+<script>
+const dados = [{"n": 11, "q": "Uma entidade tinha dois terrenos em estoque, de R$ 120.000 e R$ 150.000. Decide mantê-los para valorização e mensurá-los pelo valor justo de R$ 160.000 e R$ 140.000. Qual o efeito total?", "opts": ["DRE: +R$ 30.000.", "DMPL: +R$ 30.000.", "DRA: +R$ 30.000.", "DRE: +R$ 40.000 e DMPL: −R$ 10.000.", "DMPL: +R$ 40.000 e DRE: −R$ 10.000."], "ans": 0, "comment": "Na transferência de estoque para PPI a valor justo, as diferenças vão ao resultado: ganho de R$ 40 mil e perda de R$ 10 mil, efeito líquido positivo de R$ 30 mil na DRE."}, {"n": 12, "q": "Dois terrenos eram PPI mensuradas a valor justo. Em 31/12, valiam R$ 180.000 e R$ 210.000. Um passa a ser usado pela entidade e o outro será vendido. Por quais valores devem ser transferidos?", "opts": ["R$ 100.000 e R$ 120.000.", "R$ 160.000 e R$ 200.000.", "R$ 180.000 e R$ 210.000.", "R$ 100.000 e R$ 210.000.", "R$ 180.000 e R$ 120.000."], "ans": 2, "comment": "Quando uma PPI mensurada a valor justo é transferida para imobilizado ou estoque, usa-se o valor justo na data da mudança de uso como custo atribuído."}, {"n": 13, "q": "Uma empresa possui: terreno de uso futuro indeterminado R$ 70 mil; edifício alugado R$ 120 mil; edifício vazio para futura locação R$ 140 mil; propriedade em construção para futura PPI R$ 150 mil. Qual o saldo de PPI?", "opts": ["R$ 150.000.", "R$ 220.000.", "R$ 260.000.", "R$ 410.000.", "R$ 480.000."], "ans": 4, "comment": "Todos os quatro itens se enquadram como PPI. Soma: 70 + 120 + 140 + 150 = R$ 480 mil."}, {"n": 14, "q": "Uma loja foi adquirida para aluguel. À vista custaria R$ 80.000, embora o contrato fosse de R$ 100.000. Foi mensurada a valor justo, chegando a R$ 130.000. Ao passar a ser usada pela empresa, qual o valor contábil?", "opts": ["R$ 130.000.", "R$ 124.000.", "R$ 120.000.", "R$ 100.000.", "R$ 80.000."], "ans": 0, "comment": "Ao transferir PPI mensurada a valor justo para o imobilizado, o valor justo da data da mudança de uso torna-se o custo atribuído. Assim, R$ 130.000."}, {"n": 15, "q": "Dois terrenos no imobilizado, contabilizados por R$ 600 mil e R$ 850 mil, passam a ser PPI. O valor justo de cada um é R$ 700 mil. Qual o efeito da contrapartida?", "opts": ["Diminuição de R$ 50 mil em AAP.", "Aumento de R$ 50 mil no resultado.", "Diminuição de R$ 50 mil no resultado.", "Aumento de R$ 100 mil em AAP e diminuição de R$ 150 mil no resultado.", "Diminuição de R$ 150 mil em AAP e aumento de R$ 100 mil no resultado."], "ans": 3, "comment": "No primeiro terreno há aumento de R$ 100 mil, reconhecido em AAP. No segundo, há redução de R$ 150 mil, reconhecida como despesa no resultado."}, {"n": 16, "q": "Uma empresa aluga um imóvel onde funciona uma escola e presta administração, orientação pedagógica, definição de material didático e alimentação. O imóvel deve ser classificado como:", "opts": ["Ativo circulante.", "Ativo realizável a longo prazo.", "Propriedade para investimento.", "Ativo imobilizado.", "Patrimônio líquido."], "ans": 3, "comment": "Os serviços prestados são significativos em relação ao acordo. Por isso, o imóvel é classificado como ativo imobilizado, e não como PPI."}, {"n": 17, "q": "Um prédio usado pela empresa é alugado a terceiros e passa a ser mensurado a valor justo. O aumento remanescente entre valor contábil e valor justo deve ser reconhecido em:", "opts": ["Reserva de capital.", "Ajustes de avaliação patrimonial.", "Resultado operacional.", "Resultado financeiro.", "Outros resultados abrangentes."], "ans": 1, "comment": "Na transferência de imobilizado para PPI mensurada a valor justo, o aumento é tratado como reavaliação e reconhecido em Ajustes de Avaliação Patrimonial."}, {"n": 18, "q": "Dois terrenos de PPI, comprados por R$ 80 mil e R$ 100 mil, passam a valer R$ 90 mil cada. Onde são apresentados o ganho e a perda?", "opts": ["Ambos na DRE.", "Ambos na DMPL.", "Ambos na DRA.", "Ganho na DRE e perda na DRA.", "Ganho na DMPL e perda na DRE."], "ans": 0, "comment": "No método do valor justo, tanto os ganhos quanto as perdas decorrentes da variação do valor justo são reconhecidos na DRE."}, {"n": 19, "q": "Uma entidade comprou por R$ 120.000, a prazo, terreno para valorização. O preço à vista era R$ 100.000. Qual o efeito inicial relevante?", "opts": ["Aumento no Ativo Circulante: R$ 20.000.", "Aumento no Passivo Circulante: R$ 20.000.", "Aumento no Passivo Circulante: R$ 120.000.", "Aumento no Ativo Imobilizado: R$ 100.000.", "Aumento no Ativo Imobilizado: R$ 120.000."], "ans": 2, "comment": "O passivo é reconhecido pelo valor nominal de R$ 120 mil, enquanto a PPI é inicialmente reconhecida pelo valor à vista de R$ 100 mil. A diferença corresponde a encargos financeiros a apropriar."}, {"n": 20, "q": "Um terreno em estoque de R$ 100 mil passa a PPI pelo valor justo de R$ 120 mil; outro, no imobilizado de R$ 100 mil, passa a PPI pelo valor justo de R$ 180 mil. Qual o tratamento?", "opts": ["Receita de R$ 20 mil no primeiro e AAP de R$ 80 mil no segundo.", "Receita de R$ 20 mil e receita de R$ 80 mil.", "AAP de R$ 20 mil e AAP de R$ 80 mil.", "AAP de R$ 20 mil e receita de R$ 80 mil.", "Ganho de R$ 20 mil e ganho de R$ 80 mil."], "ans": 0, "comment": "Estoque para PPI: diferença positiva vai ao resultado como receita. Imobilizado para PPI: diferença positiva vai para Ajustes de Avaliação Patrimonial."}];
+let i=0, sel=null, acertos=0, respondidas=Array(dados.length).fill(false), escolhas=Array(dados.length).fill(null);
+const letras=["A","B","C","D","E"];
+const tq=document.getElementById("tQuestao"), tc=document.getElementById("tComentario"), tf=document.getElementById("tFinal");
+function mostrarQuestao(){
+  tq.style.display="flex"; tc.style.display="none"; tf.style.display="none";
+  const x=dados[i]; document.getElementById("tag").textContent=`Questão ${i+1} de ${dados.length}`;
+  document.getElementById("q").textContent=x.q; document.getElementById("count").textContent=`${i+1} / ${dados.length}`;
+  document.getElementById("bar").style.width=`${((i+1)/dados.length)*100}%`;
+  sel=escolhas[i]; const box=document.getElementById("opts"); box.innerHTML="";
+  x.opts.forEach((o,j)=>{const b=document.createElement("button");b.className="opcao"+(sel===j?" sel":"");b.innerHTML=`<strong>${letras[j]})</strong> ${o}`;b.onclick=()=>{sel=j; escolhas[i]=j; mostrarQuestao()};box.appendChild(b)});
+}
+function responder(){
+  if(sel===null){alert("Marque uma alternativa antes de responder.");return}
+  if(!respondidas[i]){if(sel===dados[i].ans)acertos++;respondidas[i]=true}
+  tq.style.display="none";tc.style.display="flex";tf.style.display="none";
+  const certo=sel===dados[i].ans;
+  document.getElementById("tituloComentario").textContent=`Questão ${i+1}`;
+  document.getElementById("resultado").textContent=certo?"✅ Você acertou!":"❌ Você errou.";
+  document.getElementById("resultado").style.color=certo?"#176843":"#a32636";
+  document.getElementById("comentario").textContent=dados[i].comment;
+  document.getElementById("gabarito").textContent=`Gabarito: ${letras[dados[i].ans]}) ${dados[i].opts[dados[i].ans]}`;
+}
+function proxima(){if(i<dados.length-1){i++;mostrarQuestao()}else{finalizar()}}
+function voltar(){if(i>0){i--;mostrarQuestao()}}
+function rever(){mostrarQuestao()}
+function finalizar(){
+ tq.style.display="none";tc.style.display="none";tf.style.display="flex";
+ document.getElementById("count").textContent="Concluído";document.getElementById("bar").style.width="100%";
+ document.getElementById("nota").textContent=`${acertos} / ${dados.length}`;
+ const p=Math.round(acertos/dados.length*100);document.getElementById("msg").textContent=p===100?"Excelente! Você dominou o conteúdo.":p>=70?"Muito bom! Revise apenas os pontos de dúvida.":"Continue treinando e releia os comentários.";
+}
+function reiniciar(){i=0;sel=null;acertos=0;respondidas=Array(dados.length).fill(false);escolhas=Array(dados.length).fill(null);mostrarQuestao()}
+function inicio(){reiniciar()}
+mostrarQuestao();
+</script>
+</body>
+</html>
