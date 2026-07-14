@@ -27,6 +27,17 @@ header .curso{font-size:.78rem;font-weight:900;text-transform:uppercase;letter-s
 </style>
 </head>
 <body>
+<!-- TELA DE SEGURANÇA -->
+<div id="securityScreen" style="position:fixed;inset:0;background:linear-gradient(135deg,#103d63,#1f78a8);display:flex;align-items:center;justify-content:center;z-index:99999;">
+  <div style="background:#fff;padding:24px;border-radius:18px;max-width:360px;width:92%;text-align:center;font-family:Arial">
+    <h2>Curso de Contabilidade Professor Moreira</h2>
+    <p>Informe seus dados para acessar o conteúdo.</p>
+    <input placeholder="Seu nome" style="width:100%;padding:12px;margin:8px 0">
+    <input placeholder="WhatsApp" style="width:100%;padding:12px;margin:8px 0">
+    <button onclick="document.getElementById('securityScreen').style.display='none'" style="width:100%;padding:12px;background:#17658e;color:#fff;border:0;border-radius:10px;font-weight:bold">Entrar</button>
+  </div>
+</div>
+
 <div class="app">
 <header><div class="curso">Curso de Contabilidade Professor Moreira</div><h1>Quiz FGV — Propriedade para Investimento</h1><p>Questões 11 a 20 • Explicação detalhada na tela seguinte</p></header>
 <div class="painel"><div class="prog"><div class="bar" id="bar"></div></div><div class="count" id="count"></div></div>
